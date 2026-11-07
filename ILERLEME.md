@@ -1,35 +1,35 @@
-# Progress Log
+# İlerleme Kaydı
 
 ## v0.1.0 - 2026-11-08
 
-### Added
+### Eklenenler
 
-- Hugging Face TRSAv1 dataset loading and exploratory analysis for 150,000 labeled Turkish reviews.
-- Data cleaning that trims surrounding whitespace, removes blank records, excludes conflicting-label reviews from the baseline, and deduplicates review-label pairs.
-- Stratified 70/15/15 train, validation, and test partitions.
-- TF-IDF word unigram and bigram features with Logistic Regression.
-- Saved pipeline at `models/tfidf_v0.1.joblib` and a terminal prediction interface at `src/predict_cli.py`.
-- Bilingual project documentation and pinned direct dependencies.
+- 150.000 etiketli Türkçe incelemeden oluşan Hugging Face TRSAv1 veri kümesini yükleme ve keşifsel veri analizi.
+- Baştaki ve sondaki boşlukları temizleme, boş kayıtları çıkarma, çelişkili etiketli incelemeleri temel model dışında tutma ve yinelenen inceleme-etiket çiftlerini tekilleştirme.
+- Katmanlı 70/15/15 eğitim, doğrulama ve test bölünmesi.
+- Lojistik Regresyon ile kelime düzeyinde TF-IDF tekli ve ikili sözcük öbekleri.
+- `models/tfidf_v0.1.joblib` konumuna kaydedilmiş model hattı ve `src/predict_cli.py` terminal tahmin arayüzü.
+- İki dilli proje belgeleri ve sabitlenmiş doğrudan bağımlılıklar.
 
-### Validation Results
+### Doğrulama Sonuçları
 
-- Validation examples: 21,009.
-- Accuracy: 0.80199.
-- Macro F1: 0.80056.
-- Class F1: Negative 0.84106, Neutral 0.71879, Positive 0.84183.
-- The held-out test partition has not been evaluated.
-- Terminal smoke test: `Harika ürün çok güzel` returned Positive with 93.2% model probability; the `q` exit command worked.
+- Doğrulama örneği: 21.009.
+- Doğruluk (accuracy): 0.80199.
+- Makro F1: 0.80056.
+- Sınıf bazında F1: Negatif 0.84106, Nötr 0.71879, Pozitif 0.84183.
+- Ayrılmış test kümesi henüz değerlendirilmedi.
+- Terminal denemesinde `Harika ürün çok güzel` metni, model olasılığı %93,2 ile Pozitif tahmin edildi; `q` ile çıkış çalıştı.
 
-### Data Handling
+### Veri İşleme
 
-- 891 conflicting review groups containing 6,883 rows were separated for inspection and excluded from the baseline.
-- 3,054 repeated review-label rows were removed.
-- 140,063 records remained for stratified splitting.
-- The upstream dataset card does not specify a license. Public redistribution of the dataset or trained model remains pending a rights review.
+- Çelişkili etiket içeren 891 inceleme grubu (toplam 6.883 satır) inceleme için ayrıldı ve temel modelden çıkarıldı.
+- Yinelenen 3.054 inceleme-etiket satırı kaldırıldı.
+- Katmanlı bölme için 140.063 kayıt kaldı.
+- Kaynak veri kümesinin kartında lisans belirtilmiyor. Veri kümesinin veya eğitilmiş modelin kamuya açık dağıtımı, kullanım hakları incelenene kadar beklemede.
 
-### Remaining Work
+### Sonraki İşler
 
-- Compare word and character TF-IDF features and measure the contribution of emoji features.
-- Tune model parameters using cross-validation on training data.
-- Evaluate the selected model once on the held-out test set.
-- Clarify dataset and model redistribution terms before any public release.
+- Kelime ve karakter TF-IDF özelliklerini karşılaştırmak, emoji özelliklerinin katkısını ölçmek.
+- Eğitim verisi üzerinde çapraz doğrulama ile model parametrelerini ayarlamak.
+- Seçilen modeli ayrılmış test kümesinde bir kez değerlendirmek.
+- Kamuya açık dağıtımdan önce veri kümesi ve modelin kullanım/dağıtım koşullarını netleştirmek.
