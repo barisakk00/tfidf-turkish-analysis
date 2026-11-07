@@ -82,7 +82,7 @@ py -3.14 -m venv .venv
 
 Proje, üç duygu etiketine sahip 150.000 Türkçe yorum sunan [Hugging Face TRSAv1 veri setini](https://huggingface.co/datasets/maydogan/Turkish_SentimentAnalysis_TRSAv1) kullanır. Kaynak veri setinde metin alanı `review`, etiket alanı `score` olarak adlandırılmıştır. Veri `datasets.load_dataset` ile yüklenir; veri dosyaları bu depoya eklenmez.
 
-Veri seti kartında Aydoğan ve Kocaman’ın “TRSAv1: A new benchmark dataset for classifying user reviews on Turkish e-commerce websites” başlıklı, *Journal of Information Science* dergisinde 2022’de yayımlanan çalışmasına [doi:10.1177/01655515221074328](https://doi.org/10.1177/01655515221074328) atıf yapılır. Hugging Face veri seti sayfasında lisans belirtilmemiştir. Veri seti ve modelin yeniden dağıtım hakları netleştirilmemiştir.
+Veri seti kartında Aydoğan ve Kocaman’ın “TRSAv1: A new benchmark dataset for classifying user reviews on Turkish e-commerce websites” başlıklı, *Journal of Information Science* dergisinde 2022’de yayımlanan çalışmasına [doi:10.1177/01655515221074328](https://doi.org/10.1177/01655515221074328) atıf yapılır. 
 
 ### Project Workflow
 
