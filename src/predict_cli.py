@@ -8,7 +8,7 @@ LABEL_NAMES = {
     "Neutral": "Nötr",
     "Positive": "Pozitif",
 }
-MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "tfidf_v0.1.joblib"
+MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "tfidf_v1.0.joblib"
 
 
 def main():

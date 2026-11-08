@@ -6,3 +6,4 @@ __pycache__/
 models/*.joblib
 !models/tfidf_v0.1.joblib
 models/*.pkl
+!models/tfidf_v1.0.joblib
