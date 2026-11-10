@@ -36,5 +36,23 @@
 
 ### Sonraki İşler
 
-- Nötr sınıfındaki hataları confusion matrix ve örnek incelemesiyle analiz etmek.
+- Hata inceleme tablosundaki 60 örneği elle değerlendirip olası etiket sorunlarını doğrulamak.
 - Kamuya açık dağıtımdan önce veri ve model kullanım haklarını netleştirmek.
+
+## v1.0.0 Sonrası Çalışma Notları - 2026-11-10
+
+Bu maddeler henüz yeni bir sürüm etiketi değildir.
+
+### CLI Güncellemesi
+
+- Terminal arayüzüne tekli tahminin yanında TXT dosyasından toplu tahmin seçeneği eklendi; boş olmayan her satır ayrı yorum olarak işlenir.
+- Sonuçlar XLSX dosyasına tahmin, güven ve sınıf olasılıklarıyla yazılır. Çıktı yolu verilmezse dosya TXT’nin yanına kaydedilir.
+- Excel çıktısı için `openpyxl` bağımlılığı `requirements.txt` dosyasına eklendi.
+
+### Hata Analizi ve Deneyler
+
+- Ayarlı model validation kümesindeki 21.009 örneğin 16.995’ini doğru, 4.014’ünü yanlış sınıflandırdı.
+- En sık karışıklıklar: Nötr → Pozitif 1.061; Negatif → Nötr 968; Pozitif → Nötr 857; Nötr → Negatif 812.
+- Her gerçek/tahmin sınıf çifti için güveni yüksek 10 hatadan oluşan 60 satırlık manuel inceleme tablosu eklendi. Etiketler otomatik değiştirilmedi.
+- `class_weight="balanced"` train kümesinde denendi. Validation sonucu: accuracy 0.807559, macro F1 0.806569, Nötr F1 0.726740. Varsayılan modelin aynı değerleri 0.808939, 0.807661 ve 0.727447 olduğundan bu ayar seçilmedi.
+- Bu hata analizi ve karşılaştırmalar validation verisinde yapıldı; test kümesi yeniden kullanılmadı.

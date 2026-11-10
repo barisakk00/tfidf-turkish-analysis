@@ -20,7 +20,8 @@ The dataset card cites Aydoğan and Kocaman, “TRSAv1: A new benchmark dataset 
 - Compare word-only, word-plus-character, and word-plus-character-plus-emoji TF-IDF models.
 - Tune a compact set of model parameters using 3-fold `StratifiedKFold` on training data only. Eight explicit candidates are compared with macro F1; validation is used to assess the selected settings.
 - Refit the selected pipeline on train plus validation data, then evaluate once on the held-out test set.
-- Use the saved pipeline through the terminal prediction interface.
+- Inspect validation errors and compare a balanced class-weight experiment without revisiting the test set.
+- Use the saved pipeline through the terminal for single reviews or line-by-line TXT batches exported to XLSX.
 
 ### Current Model
 
@@ -48,6 +49,12 @@ The selected settings achieved validation accuracy `0.808939` and macro F1 `0.80
 
 Neutral remains the weakest class. These results describe this dataset and split; they do not guarantee performance on other Turkish text domains.
 
+### Validation Error Analysis
+
+The tuned model made 4,014 incorrect predictions among 21,009 validation examples. The most frequent confusions were Neutral → Positive (1,061), Negative → Neutral (968), Positive → Neutral (857), and Neutral → Negative (812). The notebook includes a review queue with 10 high-confidence errors per true/predicted class pair; labels are not changed automatically.
+
+An exploratory `class_weight="balanced"` fit on the training split achieved validation accuracy `0.807559`, macro F1 `0.806569`, and Neutral F1 `0.726740`. The default tuned model scored `0.808939`, `0.807661`, and `0.727447` respectively, so balanced weights were not selected. These comparisons use validation data only; the held-out test set remains reserved for final evaluation.
+
 ### Installation and Usage
 
 Use Python 3.14 and run these commands from the project root:
@@ -63,11 +70,11 @@ Open `notebooks/turkish_sentiment_analysis.ipynb` in Jupyter or VS Code and run 
 .\.venv\Scripts\python.exe src\predict_cli.py
 ```
 
-Enter a review at the prompt. Enter `q` to exit. A smoke test classified `Ürün harika 😍` as Positive (96.4% model probability), and the exit command worked.
+Choose `1` for a single review or `2` to classify a TXT file. Put one review on each line, enter the TXT path, and optionally enter an XLSX output path. Leaving the output path empty saves `<filename>_tahminler.xlsx` beside the TXT file. The spreadsheet includes the source line number, review, predicted sentiment, confidence, and class probabilities. Enter `q` in the menu to exit.
 
 ### Project Status
 
-`v1.0.0` includes data exploration and cleaning, a stratified split, word/character/emoji features, cross-validated parameter selection, validation and held-out test evaluation, the fitted model artifact, and a terminal prediction interface. The repository remains private because the upstream dataset page does not state a license. Public redistribution is pending a rights review.
+`v1.0.0` includes data exploration and cleaning, a stratified split, word/character/emoji features, cross-validated parameter selection, validation and held-out test evaluation, the fitted model artifact, and a terminal prediction interface. Current post-release work adds validation error analysis and TXT-to-XLSX batch predictions; it has not been assigned a new release version. The repository remains private because the upstream dataset page does not state a license. Public redistribution is pending a rights review.
 
 ### License
 
@@ -97,7 +104,8 @@ Veri seti kartında Aydoğan ve Kocaman’ın “TRSAv1: A new benchmark dataset
 - Yalnızca kelime, kelime + karakter ve kelime + karakter + emoji TF-IDF modellerini karşılaştırma.
 - Eğitim verisi üzerinde 3 katlı `StratifiedKFold` ile sınırlı sayıda model ayarını macro F1’e göre karşılaştırma; seçilen ayarları validation kümesinde değerlendirme.
 - Seçilen pipeline’ı train ve validation verilerinin birleşiminde yeniden eğitme, ardından ayrılmış test kümesinde bir kez değerlendirme.
-- Kaydedilmiş pipeline’ı terminal tahmin arayüzünden kullanma.
+- Test kümesini yeniden kullanmadan validation hatalarını inceleme ve sınıf ağırlıklı modeli karşılaştırma.
+- Kaydedilmiş pipeline’ı terminalde tek yorum veya satır satır TXT dosyasından toplu tahmin için kullanıp sonuçları XLSX’e aktarma.
 
 ### Mevcut Model
 
@@ -125,6 +133,12 @@ Seçilen ayarlar validation kümesinde `0.808939` accuracy ve `0.807661` macro F
 
 Nötr sınıfı diğer sınıflara göre daha zayıftır. Bu sonuçlar yalnızca bu veri seti ve bölünme için geçerlidir; Türkçedeki diğer metin alanlarında aynı performansı garanti etmez.
 
+### Validation Hata Analizi
+
+Ayarlı model 21.009 validation örneğinin 4.014’ünü yanlış sınıflandırdı. En sık karışan çiftler Nötr → Pozitif (1.061), Negatif → Nötr (968), Pozitif → Nötr (857) ve Nötr → Negatif (812) oldu. Notebook’ta her gerçek/tahmin sınıf çifti için güveni yüksek 10 hata içeren bir inceleme tablosu bulunur; etiketler otomatik değiştirilmez.
+
+Train kümesinde eğitilen deneme `class_weight="balanced"` modeli validation’da `0.807559` accuracy, `0.806569` macro F1 ve `0.726740` Nötr F1 aldı. Varsayılan ayarlı modelin değerleri sırasıyla `0.808939`, `0.807661` ve `0.727447` olduğundan dengeli sınıf ağırlıkları seçilmedi. Karşılaştırma yalnızca validation verisini kullanır; ayrılmış test kümesi nihai değerlendirme için korunur.
+
 ### Kurulum ve Kullanım
 
 Python 3.14 kullan ve komutları proje kök dizininde çalıştır:
@@ -140,11 +154,11 @@ py -3.14 -m venv .venv
 .\.venv\Scripts\python.exe src\predict_cli.py
 ```
 
-İsteme bir yorum gir. Çıkmak için `q` yaz. Terminal denemesinde `Ürün harika 😍` metni %96,4 model olasılığıyla Pozitif tahmin edildi ve çıkış komutu çalıştı.
+`1` ile tek yorum, `2` ile TXT dosyası seç. Her satıra bir yorum yaz; TXT yolunu gir ve istersen XLSX çıktı yolunu belirt. Çıktı yolu boş bırakılırsa dosya, TXT’nin yanına `<dosyaadı>_tahminler.xlsx` adıyla kaydedilir. Tabloda kaynak satır numarası, yorum, tahmin, güven ve sınıf olasılıkları yer alır. Menüden çıkmak için `q` yaz.
 
 ### Proje Durumu
 
-`v1.0.0`; veri inceleme ve temizliğini, katmanlı veri bölünmesini, kelime/karakter/emoji özelliklerini, çapraz doğrulama ile ayar seçimini, validation ve ayrılmış test değerlendirmesini, eğitilmiş model dosyasını ve terminal tahmin arayüzünü içerir. Kaynak veri seti sayfasında lisans belirtilmediği için depo özel tutulmaktadır. Kamuya açık dağıtım, kullanım hakları incelenene kadar beklemededir.
+`v1.0.0`; veri inceleme ve temizliğini, katmanlı veri bölünmesini, kelime/karakter/emoji özelliklerini, çapraz doğrulama ile ayar seçimini, validation ve ayrılmış test değerlendirmesini, eğitilmiş model dosyasını ve terminal tahmin arayüzünü içerir. Sürüm sonrası çalışma olarak validation hata analizi ve TXT’den XLSX’e toplu tahmin eklendi; bu değişikliklere henüz yeni sürüm numarası verilmedi. Kaynak veri seti sayfasında lisans belirtilmediği için depo özel tutulmaktadır. Kamuya açık dağıtım, kullanım hakları incelenene kadar beklemededir.
 
 ### Lisans
 
