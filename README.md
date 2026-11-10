@@ -74,7 +74,7 @@ Choose `1` for a single review or `2` to classify a TXT file. Put one review on 
 
 ### Project Status
 
-`v1.0.0` includes data exploration and cleaning, a stratified split, word/character/emoji features, cross-validated parameter selection, validation and held-out test evaluation, the fitted model artifact, and a terminal prediction interface. Current post-release work adds validation error analysis and TXT-to-XLSX batch predictions; it has not been assigned a new release version. The repository remains private because the upstream dataset page does not state a license. Public redistribution is pending a rights review.
+`v1.1.0` builds on the `v1.0.0` model and adds validation error analysis plus TXT-to-XLSX batch prediction in the terminal interface. The fitted model artifact and its reported evaluation metrics remain those of `v1.0.0`; this release does not claim a new model-performance improvement. The repository remains private because the upstream dataset page does not state a license. Public redistribution is pending a rights review.
 
 ### License
 
@@ -158,7 +158,7 @@ py -3.14 -m venv .venv
 
 ### Proje Durumu
 
-`v1.0.0`; veri inceleme ve temizliğini, katmanlı veri bölünmesini, kelime/karakter/emoji özelliklerini, çapraz doğrulama ile ayar seçimini, validation ve ayrılmış test değerlendirmesini, eğitilmiş model dosyasını ve terminal tahmin arayüzünü içerir. Sürüm sonrası çalışma olarak validation hata analizi ve TXT’den XLSX’e toplu tahmin eklendi; bu değişikliklere henüz yeni sürüm numarası verilmedi. Kaynak veri seti sayfasında lisans belirtilmediği için depo özel tutulmaktadır. Kamuya açık dağıtım, kullanım hakları incelenene kadar beklemededir.
+`v1.1.0`, `v1.0.0` modelinin üzerine validation hata analizini ve terminal arayüzünde TXT’den XLSX’e toplu tahmini ekler. Eğitilmiş model dosyası ve raporlanan değerlendirme metrikleri `v1.0.0` sürümündekiyle aynıdır; bu sürüm yeni bir model performansı artışı iddia etmez. Kaynak veri seti sayfasında lisans belirtilmediği için depo özel tutulmaktadır. Kamuya açık dağıtım, kullanım hakları incelenene kadar beklemededir.
 
 ### Lisans
 

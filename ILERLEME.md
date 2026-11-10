@@ -39,9 +39,9 @@
 - Hata inceleme tablosundaki 60 örneği elle değerlendirip olası etiket sorunlarını doğrulamak.
 - Kamuya açık dağıtımdan önce veri ve model kullanım haklarını netleştirmek.
 
-## v1.0.0 Sonrası Çalışma Notları - 2026-11-10
+## v1.1.0 - 2026-11-10
 
-Bu maddeler henüz yeni bir sürüm etiketi değildir.
+Bu sürüm `v1.0.0` modelini değiştirmez; CLI kullanımını ve notebook hata analizini geliştirir.
 
 ### CLI Güncellemesi
 
@@ -56,3 +56,4 @@ Bu maddeler henüz yeni bir sürüm etiketi değildir.
 - Her gerçek/tahmin sınıf çifti için güveni yüksek 10 hatadan oluşan 60 satırlık manuel inceleme tablosu eklendi. Etiketler otomatik değiştirilmedi.
 - `class_weight="balanced"` train kümesinde denendi. Validation sonucu: accuracy 0.807559, macro F1 0.806569, Nötr F1 0.726740. Varsayılan modelin aynı değerleri 0.808939, 0.807661 ve 0.727447 olduğundan bu ayar seçilmedi.
 - Bu hata analizi ve karşılaştırmalar validation verisinde yapıldı; test kümesi yeniden kullanılmadı.
+- Toplu tahmin CLI akışı örnek TXT dosyasıyla çalıştırıldı; 3 satır tahmin edilip beklenen sütunlarla XLSX oluşturuldu.
